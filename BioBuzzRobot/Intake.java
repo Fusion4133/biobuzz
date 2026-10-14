@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.BioBuzzRobot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.StateMachine.StateMachineCommand;
@@ -10,6 +11,7 @@ import org.firstinspires.ftc.teamcode.StateMachine.StateMachineIntakeCommand;
 
 public class Intake {
     public DcMotor intakeMotor;
+    public Servo flowerUnloadRamp;
     public IntakeState currentIntakeState = IntakeState.STOPPED;
     public StateMachineIntakeCommand currentIntakeCommand;
     public enum IntakeCommand {
@@ -32,7 +34,7 @@ public class Intake {
                 if (nextCommandType == StateMachineCommand.SystemTypes.INTAKE){
 
                     currentIntakeCommand = autoCommands.getIntakeCommand();
-                    robot.stateMachineOptions.currentIntakeOption++;
+                   // robot.stateMachineOptions.currentIntakeOption++;
 
                 }
                 break;
