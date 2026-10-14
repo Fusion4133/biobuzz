@@ -45,7 +45,15 @@ public class StateMachineCommands
     public StateMachineMotorCommand getMotorCommand()
     {
         return (StateMachineMotorCommand) stateMachineCommands.get(currentOption);
+
     }
+
+    public StateMachineIntakeCommand getIntakeCommand() {
+        return (StateMachineIntakeCommand) stateMachineCommands.get(currentOption);
+
+    }
+
+
 
    // public StateMachineShooterCommand getShooterCommand()
     {

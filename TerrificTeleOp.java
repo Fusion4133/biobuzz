@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.BioBuzzRobot.BioBuzzRobot;
+
 @TeleOp
 public class TerrificTeleOp extends OpMode {
 

@@ -5,6 +5,7 @@ public abstract class StateMachineCommand
     public enum SystemTypes
     {
         DRIVE,
+        INTAKE,
         SERVO,
         MOTOR,
         SHOOTER,
