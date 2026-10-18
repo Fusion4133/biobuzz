@@ -10,6 +10,7 @@ public class BioBuzzRobot {
     OdoMecDrive drivetrain = new OdoMecDrive();
     Intake intake = new Intake();
 
+    Shooter shooter = new Shooter();
 
     public void robotInit (HardwareMap hwMap, Telemetry telem) {
         drivetrain.driveInit(hwMap, telem);

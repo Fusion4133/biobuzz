@@ -11,7 +11,6 @@ import org.firstinspires.ftc.teamcode.StateMachine.StateMachineIntakeCommand;
 
 public class Intake {
     public DcMotor intakeMotor;
-    public Servo flowerUnloadRamp;
     public IntakeState currentIntakeState = IntakeState.STOPPED;
     public StateMachineIntakeCommand currentIntakeCommand;
     public enum IntakeCommand {
