@@ -3,8 +3,11 @@ package org.firstinspires.ftc.teamcode.BioBuzzRobot;
 import org.firstinspires.ftc.teamcode.AutoOptions.AutonomousIntOption;
 import org.firstinspires.ftc.teamcode.AutoOptions.AutonomousOptions;
 import org.firstinspires.ftc.teamcode.AutoOptions.AutonomousTextOption;
+import org.firstinspires.ftc.teamcode.DriveTrains.MecDrive;
 import org.firstinspires.ftc.teamcode.StateMachine.StateMachineCommand;
 import org.firstinspires.ftc.teamcode.StateMachine.StateMachineCommands;
+import org.firstinspires.ftc.teamcode.StateMachine.StateMachineDriveCommand;
+import org.firstinspires.ftc.teamcode.Tools.Vector;
 
 public class BioBuzzAutoRobot extends BioBuzzRobot {
 
@@ -27,7 +30,8 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
     }
 
     public void setupSidewall(){
-        autoCommands.addCommand();
+        drivetrain.initOdoPos(0.0, 180.3, (3.0*Math.PI)/2.0);
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,180.3, (3.0*Math.PI)/2.0)));
 
 
     }
