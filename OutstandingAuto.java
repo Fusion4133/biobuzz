@@ -18,6 +18,10 @@ public class OutstandingAuto extends LinearOpMode {
         robot.robotInit(hardwareMap, telemetry);
         robot.autoOptions.selectOptions(this);
 
+        if (robot.startPosition.getValue().equals("sidewall")){
+
+        }
+
         waitForStart();
 
         sleep(robot.startDelay.getValue()*1000);
