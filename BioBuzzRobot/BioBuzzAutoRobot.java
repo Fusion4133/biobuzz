@@ -26,4 +26,15 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         intake.checkIntakeState(autoCommands, currentType);
     }
 
+    public void setupSidewall(){
+        autoCommands.addCommand();
+
+
+    }
+
+
+
+
+
+
 }
