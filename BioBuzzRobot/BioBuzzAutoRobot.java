@@ -31,9 +31,13 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
 
     public void setupSidewall(){
         drivetrain.initOdoPos(0.0, 180.3, (3.0*Math.PI)/2.0);
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,180.3, (3.0*Math.PI)/2.0)));
+//        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,180.3, (3.0*Math.PI)/2.0)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,231.1, (3.0*Math.PI)/2.0)));
 
 
+    }
+    public void setupuptilt(){
+        drivetrain.initOdoPos(121.9, 0.0, 0.0);
     }
 
 
