@@ -7,4 +7,16 @@ public class StateMachineIntakeCommand extends StateMachineCommand {
 
 
 
+
+     public StateMachineIntakeCommand(Intake.IntakeCommand iCommand){
+          command = iCommand;
+
+          systemType = SystemTypes.INTAKE;
+
+     }
+
+
+
+
+
 }

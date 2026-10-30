@@ -1,17 +1,17 @@
 package org.firstinspires.ftc.teamcode.StateMachine;
 
-import org.firstinspires.ftc.teamcode.Shooter;
+
+import org.firstinspires.ftc.teamcode.BioBuzzRobot.Shooter;
 
 public class StateMachineShooterCommand extends StateMachineCommand
 {
 
     public Shooter.ShooterCommand command;
-    public double rpm;
 
-    public StateMachineShooterCommand(Shooter.ShooterCommand iCommand, double iRpm )
+
+    public StateMachineShooterCommand(Shooter.ShooterCommand iCommand)
     {
         command = iCommand;
-        rpm = iRpm;
         systemType = SystemTypes.SHOOTER;
     }
 

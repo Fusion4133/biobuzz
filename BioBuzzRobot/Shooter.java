@@ -12,6 +12,13 @@ public class Shooter {
     public Servo nectarServo;
     public Servo pollenServo;
 
+
+    //eventually nectar might be faster
+    //TODO run and test motor speeds
+    public static final double NECTAR_MOTOR_SPEED = 1.0;
+    public static final double POLLEN_MOTOR_SPEED = 1.0;
+
+
     public enum ShooterCommand {
         STOP,
         TURNON,
