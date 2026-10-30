@@ -12,10 +12,23 @@ public class Shooter {
     public Servo nectarServo;
     public Servo pollenServo;
 
-    public void shooterInit(HardwareMap hwMap, Telemetry telem){
+    public enum ShooterCommand {
+        STOP,
+        TURNON,
+        SHOOT
+    }
+
+    public enum ShooterState {
+        STOPPED,
+        READYTOSHOOT,
+        SHOOTING
+    }
+
+    public void shooterInit(HardwareMap hwMap, Telemetry telem) {
         nectarMotor = hwMap.get(DcMotorEx.class, "nsm");
         pollenMotor = hwMap.get(DcMotorEx.class, "psm");
         nectarServo = hwMap.servo.get("nss");
         pollenServo = hwMap.servo.get("pss");
+    }
 
 }

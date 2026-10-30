@@ -36,7 +36,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
 
 
     }
-    public void setupuptilt(){
+    public void setupUpTilt(){
         drivetrain.initOdoPos(121.9, 0.0, 0.0);
     }
 
