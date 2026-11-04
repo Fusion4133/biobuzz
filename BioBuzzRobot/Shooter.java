@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.BioBuzzRobot;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -134,6 +135,8 @@ public class Shooter {
         pollenMotor = hwMap.get(DcMotorEx.class, "psm");
         nectarServo = hwMap.servo.get("nss");
         pollenServo = hwMap.servo.get("pss");
+
+        pollenMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
 }
