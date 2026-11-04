@@ -4,12 +4,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.DriveTrains.OdoMecDrive;
+import org.firstinspires.ftc.teamcode.StateMachine.StateMachineCommands;
 
 public class BioBuzzRobot {
 
-    OdoMecDrive drivetrain = new OdoMecDrive();
-    Intake intake = new Intake();
-    Shooter shooter = new Shooter();
+    public OdoMecDrive drivetrain = new OdoMecDrive();
+   public Intake intake = new Intake();
+   public Shooter shooter = new Shooter();
 
     public void robotInit (HardwareMap hwMap, Telemetry telem) {
         drivetrain.driveInit(hwMap, telem);

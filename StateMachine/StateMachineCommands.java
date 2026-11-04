@@ -54,10 +54,9 @@ public class StateMachineCommands
     }
 
 
-
-   // public StateMachineShooterCommand getShooterCommand()
+    public StateMachineShooterCommand getShooterCommand()
     {
-  //     return (StateMachineShooterCommand) stateMachineCommands.get(currentOption);
+        return (StateMachineShooterCommand) stateMachineCommands.get(currentOption);
     }
 
 }

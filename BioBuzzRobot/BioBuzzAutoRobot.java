@@ -14,20 +14,17 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
     public AutonomousOptions autoOptions = new AutonomousOptions();
     public AutonomousTextOption allianceColor = autoOptions.addTextOption("Alliance", "red", new String[]{"red", "blue"});
     public AutonomousTextOption startPosition = autoOptions.addTextOption("StartPostion", "uptilt", new String[]{"uptilt", "downtilt", "sidewall"});
-
     public AutonomousIntOption startDelay = autoOptions.addIntOption("Start Delay", 0, 0, 20);
+    public AutonomousTextOption firstCollection = autoOptions.addTextOption("First Collection", "garden", new String[]{"garden", "flower 1", "side wall", "flower 2", "none"});
+    public AutonomousTextOption secondCollection = autoOptions.addTextOption("Second Collection", "flower 1", new String[]{"garden", "flower 1", "side wall", "flower 2", "none"});
+    public AutonomousTextOption thirdCollection = autoOptions.addTextOption("Third Collection", "side wall", new String[]{"garden", "flower 1", "side wall", "flower 2", "none"});
+    public AutonomousTextOption fourthCollection = autoOptions.addTextOption("Fourth Collection", "flower 2", new String[]{"garden", "flower 1", "side wall", "flower 2", "none"});
 
     //TODO Add the rest of autonomous options(ball collect)
 
 
     public StateMachineCommands autoCommands;
 
-    public void checkRobotStates(){
-        // getCurrentType means to figure out what "subsystem" of  the robot the next command is
-        StateMachineCommand.SystemTypes currentType = autoCommands.getCurrentType();
-
-        intake.checkIntakeState(autoCommands, currentType);
-    }
 
     public void setupSidewall(){
         drivetrain.initOdoPos(0.0, 180.3, (3.0*Math.PI)/2.0);
@@ -40,7 +37,11 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         drivetrain.initOdoPos(121.9, 0.0, 0.0);
     }
 
-
+    public void checkRobotState(){
+        drivetrain.checkDriveState(autoCommands);
+        intake.checkIntakeState(autoCommands);
+        shooter.checkShooterState(autoCommands);
+    }
 
 
 

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.BioBuzzRobot.BioBuzzAutoRobot;
 
@@ -26,6 +27,12 @@ public class OutstandingAuto extends LinearOpMode {
         waitForStart();
 
         sleep(robot.startDelay.getValue()*1000);
+
+        while (opModeIsActive()) {
+            //line below refreshes the odometry every time the robot begins auto.
+            robot.drivetrain.odoLogic();
+            robot.checkRobotState();
+        }
 
 
 

@@ -9,6 +9,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
+import org.firstinspires.ftc.teamcode.StateMachine.StateMachineCommand;
+import org.firstinspires.ftc.teamcode.StateMachine.StateMachineCommands;
+import org.firstinspires.ftc.teamcode.StateMachine.StateMachineDriveCommand;
 import org.firstinspires.ftc.teamcode.Tools.OdoLogger;
 import org.firstinspires.ftc.teamcode.Tools.Vector;
 
@@ -16,6 +19,8 @@ import org.firstinspires.ftc.teamcode.Tools.Vector;
 public class OdoMecDrive extends MecDrive {
     public DcMotor odoPodLeft, odoPodRight, odoPodMid;
 
+    public StateMachineDriveCommand currentDriveCommand;
+    
     GoBildaPinpointDriver pinPoint;
 
     Pose2D pose2D;
@@ -699,6 +704,120 @@ public class OdoMecDrive extends MecDrive {
         setDrivePowers((lfPower * iPower / maxPower), (rfPower * iPower / maxPower), (lbPower * iPower / maxPower), (rbPower * iPower / maxPower));
         telem.update();
     }
+
+
+    public void checkDriveState(StateMachineCommands commandList) {
+        //TODO let the orchestrator (BioBuzzRobot) handle end of file and next commands
+        //if (commandList.currentOption >= commandList.stateMachineCommands.size() && currentDriveState == MecDrive.DriveState.STOPPED) {
+           // break;
+       // }
+
+        switch (currentDriveState) {
+            case STOPPED:
+                //waitingOnDrive = false;
+                if (commandList.currentOption < commandList.stateMachineCommands.size() &&
+                        commandList.getCurrentType() == StateMachineCommand.SystemTypes.DRIVE) {
+
+                    currentDriveCommand = commandList.getDriveCommand();
+                    commandList.currentOption++;
+
+                    switch (currentDriveCommand.command) {
+                        case DRIVEFORWARD:
+                            driveStartOdo(currentDriveCommand.power, currentDriveCommand.distance, MecDrive.DriveDirection.FORWARD, currentDriveCommand.startVector);
+                            break;
+                        case DRIVEBACKWARD:
+                            driveStartOdo(currentDriveCommand.power, currentDriveCommand.distance, MecDrive.DriveDirection.BACKWARD, currentDriveCommand.startVector);
+                            break;
+                        case TURNRIGHT:
+                            turnStartOdo(currentDriveCommand.power, currentDriveCommand.distance, MecDrive.TurnDirection.RIGHTSPIN);
+                            break;
+                        case TURNLEFT:
+                            turnStartOdo(currentDriveCommand.power, currentDriveCommand.distance, MecDrive.TurnDirection.LEFTSPIN);
+                            break;
+                        //case WAIT:
+                            //driveTimer.reset();
+                           // currentDriveState = MecDrive.DriveState.WAITING;
+                            //break;
+                        case DRIVETOPOS:
+                            driveToOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
+                            break;
+                        //case DRIVETIME:
+                            //driveTimer.reset();
+                            //while (driveTimer.milliseconds() < currentDriveCommand.distance){
+                                //setDrivePowers(0.5, 0.5, 0.5, 0.5);
+
+                           // }
+                            //break;
+
+                        //case WAITSHOOTER:
+                            //waitingOnShooter = true;
+                           // currentDriveState = MecDrive.DriveState.WAITINGSHOOTER;
+                           // break;
+                    }
+
+
+                }
+
+
+                break;
+
+            case DRIVINGFORWARD:
+                if (primaryDriveEncoder.getCurrentPosition() < driveEncTargetPos) {
+                    setDrivePowers(0, 0, 0, 0);
+                    currentDriveState = MecDrive.DriveState.STOPPED;
+                } else {
+                    driveOdoAdjust(currentDriveCommand.power);
+                }
+                break;
+            case DRIVINGBACKWARD:
+                if (primaryDriveEncoder.getCurrentPosition() > driveEncTargetPos) {
+                    setDrivePowers(0, 0, 0, 0);
+                    currentDriveState = MecDrive.DriveState.STOPPED;
+                } else {
+                    driveOdoAdjust(-currentDriveCommand.power);
+                }
+                break;
+            case TURNINGLEFT:
+                if (pos.theta > driveOdoTargetPos) {
+                    setDrivePowers(0, 0, 0, 0);
+                    currentDriveState = MecDrive.DriveState.STOPPED;
+                }
+                break;
+            case TURNINGRIGHT:
+                if (pos.theta < driveOdoTargetPos) {
+                    setDrivePowers(0, 0, 0, 0);
+                    currentDriveState = MecDrive.DriveState.STOPPED;
+                }
+                break;
+           // case WAITING:
+                //if (driveTimer.milliseconds() > currentDriveCommand.distance) {
+                  //  currentDriveState = MecDrive.DriveState.STOPPED;
+                //}
+                //break;
+            case DRIVINGT0POS:
+                if (turnIsComplete && xIsComplete && yIsComplete){
+                    setDrivePowers(0, 0,0,0);
+                    currentDriveState = MecDrive.DriveState.STOPPED;
+                } else {
+                    driveToOdoAdjustToTarget(currentDriveCommand.power, currentDriveCommand.finalVector);
+
+                }
+                break;
+
+           // case WAITINGSHOOTER:
+             //   if (! waitingOnShooter) {
+               //     currentDriveState = MecDrive.DriveState.STOPPED;
+                //}
+                //break;
+
+
+
+        }
+
+
+
+    }
+
 
 
 
