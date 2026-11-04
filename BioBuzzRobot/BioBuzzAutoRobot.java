@@ -54,7 +54,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.SHOOT));
         // wait 1/2 second to shoot all balls
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.STOP));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector( 144.8, 332.5, (3.0*Math.PI)/2.0));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector( 144.8, 332.5, (3.0*Math.PI)/2.0)));
         autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(61.0, 182.9, 0)));
         // wait for robot to get to pos
         autoCommands.addCommand(new StateMachineIntakeCommand(Intake.IntakeCommand.COLLECT));
@@ -62,7 +62,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.TURNON));
         autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector (121.9, 0.0, 0.0)));
         // programming for in one shoot, will add another if needed
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(15.2,231.1,0);
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(15.2,231.1,0)));
 
 
 
