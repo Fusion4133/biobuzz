@@ -75,6 +75,17 @@ public class OdoMecDrive extends MecDrive {
     //This is to display telemetry for odometry values in autonomous
     public OdoLogger odoLogger = new OdoLogger();
 
+
+    public void fieldCentricDrive(double xInput, double yInput, double turnInput, double thetaInput, boolean driveModeHigh){
+        double newX = xInput * Math.cos(pinPoint.getHeading(AngleUnit.RADIANS)) + yInput * Math.sin(pinPoint.getHeading(AngleUnit.RADIANS));
+        double newY = yInput * Math.cos(pinPoint.getHeading(AngleUnit.RADIANS)) - xInput * Math.sin(pinPoint.getHeading(AngleUnit.RADIANS));
+
+
+        setDrivePowers(newY + newX + turnInput, newY - newX + turnInput, newY - newX - turnInput, newY + newX - turnInput);
+
+    }
+
+
     public void driveInit(HardwareMap hwMap, Telemetry telem) {
         super.driveInit(hwMap, telem);
 
@@ -84,12 +95,12 @@ public class OdoMecDrive extends MecDrive {
         //TODO get numbers
         pinPoint.setOffsets(0.0, 0.0, DistanceUnit.CM);
         pinPoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        pinPoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.REVERSED);
+        pinPoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         pinPoint.resetPosAndIMU();
 
         pinPoint.getHeading(AngleUnit.RADIANS);
 
-        pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 0, 0, AngleUnit.DEGREES, 0));
+        pinPoint.setPosition(new Pose2D(DistanceUnit.CM, 0, 0, AngleUnit.RADIANS, 0));
 
     }
 

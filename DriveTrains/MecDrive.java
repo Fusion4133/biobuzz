@@ -161,29 +161,29 @@ public class MecDrive {
         rightFront.setPower((-hIn + (yIn - xIn))*(powerFactor)/denominator);
         rightBack.setPower((-hIn + (yIn + xIn))*(powerFactor)/denominator);
     }
-    public void fieldCentricDrive(double xImput, double yImput, double turnImput, double thetaImput, boolean driveModeHigh){
+    public void fieldCentricDriveOld(double xInput, double yInput, double turnInput, double thetaInput, boolean driveModeHigh){
 
         double x;
-        if (xImput == 0){
+        if (xInput == 0){
             x = 0.0001;
         }else {
-            x = xImput;
+            x = xInput;
         }
 
-        double driveTheta = Math.atan(yImput / x);
+        double driveTheta = Math.atan(yInput / x);
 
-        if (xImput < 0 ){
+        if (xInput < 0 ){
             driveTheta += Math.PI;
         }
 
-        double drivePower = Math.sqrt(Math.pow(xImput, 2) + Math.pow(yImput, 2));
+        double drivePower = Math.sqrt(Math.pow(xInput, 2) + Math.pow(yInput, 2));
 
-        double power = Math.sqrt(Math.pow(drivePower, 2) + Math.pow(turnImput, 2));
+        double power = Math.sqrt(Math.pow(drivePower, 2) + Math.pow(turnInput, 2));
 
-        double lfPower = drivePower * Math.cos(driveTheta - thetaImput) + drivePower * Math.sin(driveTheta - thetaImput) + turnImput;
-        double rfPower = drivePower * Math.cos(driveTheta - thetaImput) - drivePower * Math.sin(driveTheta - thetaImput) + turnImput;
-        double lbPower = drivePower * Math.cos(driveTheta - thetaImput) - drivePower * Math.sin(driveTheta - thetaImput) - turnImput;
-        double rbPower = drivePower * Math.cos(driveTheta - thetaImput) + drivePower * Math.sin(driveTheta - thetaImput) - turnImput;
+        double lfPower = drivePower * Math.cos(driveTheta - thetaInput) + drivePower * Math.sin(driveTheta - thetaInput) + turnInput;
+        double rfPower = drivePower * Math.cos(driveTheta - thetaInput) - drivePower * Math.sin(driveTheta - thetaInput) + turnInput;
+        double lbPower = drivePower * Math.cos(driveTheta - thetaInput) - drivePower * Math.sin(driveTheta - thetaInput) - turnInput;
+        double rbPower = drivePower * Math.cos(driveTheta - thetaInput) + drivePower * Math.sin(driveTheta - thetaInput) - turnInput;
 
         double maxPower = 1.0;
 
