@@ -35,6 +35,9 @@ public class TerrificTeleOp extends OpMode {
         robot.drivetrain.odoLogic();
         robot.drivetrain.fieldCentricDrive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, robot.drivetrain.pos.theta, true);
 
+        telemetry.addData("X Pod", robot.drivetrain.pinPoint.getEncoderX());
+        telemetry.addData("y Pod", robot.drivetrain.pinPoint.getEncoderY());
+
         if (gamepad1.right_trigger > 0.4) {
             robot.intake.intakeMotor.setPower(Intake.COLLECT_MOTOR_SPEED);
         }

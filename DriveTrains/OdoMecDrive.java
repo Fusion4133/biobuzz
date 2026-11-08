@@ -21,7 +21,7 @@ public class OdoMecDrive extends MecDrive {
 
     public StateMachineDriveCommand currentDriveCommand;
     
-    GoBildaPinpointDriver pinPoint;
+    public GoBildaPinpointDriver pinPoint;
 
     Pose2D pose2D;
     public enum VectorFollow {
@@ -82,7 +82,7 @@ public class OdoMecDrive extends MecDrive {
         pinPoint = hwMap.get(GoBildaPinpointDriver.class, "pinpoint");
 
         //TODO get numbers
-        pinPoint.setOffsets(-10.795, 6.36, DistanceUnit.CM);
+        pinPoint.setOffsets(0.0, 0.0, DistanceUnit.CM);
         pinPoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         pinPoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.REVERSED, GoBildaPinpointDriver.EncoderDirection.REVERSED);
         pinPoint.resetPosAndIMU();
