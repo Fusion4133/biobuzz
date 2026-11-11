@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.BioBuzzRobot;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -26,8 +27,8 @@ public class Shooter {
 
     //eventually nectar might be faster
     //TODO run and test motor speeds
-    public static final double NECTAR_MOTOR_VELOCITY = 20000.0;
-    public static final double POLLEN_MOTOR_VELOCITY = 20000.0;
+    public static final double NECTAR_MOTOR_VELOCITY = 2200.0;
+    public static final double POLLEN_MOTOR_VELOCITY = 1920.0;
     public static final double NECTAR_SERVO_OPEN = 1.0;
     public static final double NECTAR_SERVO_CLOSED = 0.0;
     public static final double POLLEN_SERVO_OPEN = 1.0;
@@ -137,6 +138,8 @@ public class Shooter {
         pollenServo = hwMap.servo.get("pss");
 
         pollenMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        nectarMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        pollenMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 }
