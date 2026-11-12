@@ -26,13 +26,17 @@ public class Shooter {
     ElapsedTime shootTimer = new ElapsedTime();
 
     //eventually nectar might be faster
-    //TODO run and test motor speeds
+    //shooter velocities as of 11/10/26
     public static final double NECTAR_MOTOR_VELOCITY = 2200.0;
     public static final double POLLEN_MOTOR_VELOCITY = 1920.0;
+
+    //TODO test servo values
     public static final double NECTAR_SERVO_OPEN = 1.0;
     public static final double NECTAR_SERVO_CLOSED = 0.0;
     public static final double POLLEN_SERVO_OPEN = 1.0;
     public static final double POLLEN_SERVO_CLOSED = 0.0;
+
+    //TODO test time needed to shoot 4 balls
     public static final double TIME_NEEDED_TO_SHOOT = 2000;
 
 
