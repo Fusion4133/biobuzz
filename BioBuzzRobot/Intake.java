@@ -40,11 +40,9 @@ public class Intake {
         switch (currentIntakeState) {
             case READY:
                 //waitingOnDrive = false;
-                if (commandList.currentOption < commandList.stateMachineCommands.size() &&
-                        commandList.getCurrentType() == StateMachineCommand.SystemTypes.INTAKE) {
+                if (commandList.getCurrentType() == StateMachineCommand.SystemTypes.INTAKE) {
 
                     currentIntakeCommand = commandList.getIntakeCommand();
-                    commandList.currentOption++;
 
                     switch (currentIntakeCommand.command) {
                         case COLLECT:

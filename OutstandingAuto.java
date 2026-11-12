@@ -26,9 +26,9 @@ public class OutstandingAuto extends LinearOpMode {
         }
         waitForStart();
 
-        sleep(robot.startDelay.getValue()*1000);
+        sleep((long) robot.startDelay.getValue() * 1000);
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !isStopRequested()) {
             //line below refreshes the odometry every time the robot begins auto.
             robot.drivetrain.odoLogic();
             robot.checkRobotState();

@@ -726,11 +726,9 @@ public class OdoMecDrive extends MecDrive {
         switch (currentDriveState) {
             case STOPPED:
                 //waitingOnDrive = false;
-                if (commandList.currentOption < commandList.stateMachineCommands.size() &&
-                        commandList.getCurrentType() == StateMachineCommand.SystemTypes.DRIVE) {
+                if (commandList.getCurrentType() == StateMachineCommand.SystemTypes.DRIVE) {
 
                     currentDriveCommand = commandList.getDriveCommand();
-                    commandList.currentOption++;
 
                     switch (currentDriveCommand.command) {
                         case DRIVEFORWARD:
@@ -745,10 +743,6 @@ public class OdoMecDrive extends MecDrive {
                         case TURNLEFT:
                             turnStartOdo(currentDriveCommand.power, currentDriveCommand.distance, MecDrive.TurnDirection.LEFTSPIN);
                             break;
-                        //case WAIT:
-                            //driveTimer.reset();
-                           // currentDriveState = MecDrive.DriveState.WAITING;
-                            //break;
                         case DRIVETOPOS:
                             driveToOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
                             break;
@@ -760,10 +754,6 @@ public class OdoMecDrive extends MecDrive {
                            // }
                             //break;
 
-                        //case WAITSHOOTER:
-                            //waitingOnShooter = true;
-                           // currentDriveState = MecDrive.DriveState.WAITINGSHOOTER;
-                           // break;
                     }
 
 
@@ -800,11 +790,6 @@ public class OdoMecDrive extends MecDrive {
                     currentDriveState = MecDrive.DriveState.STOPPED;
                 }
                 break;
-           // case WAITING:
-                //if (driveTimer.milliseconds() > currentDriveCommand.distance) {
-                  //  currentDriveState = MecDrive.DriveState.STOPPED;
-                //}
-                //break;
             case DRIVINGT0POS:
                 if (turnIsComplete && xIsComplete && yIsComplete){
                     setDrivePowers(0, 0,0,0);
@@ -814,14 +799,6 @@ public class OdoMecDrive extends MecDrive {
 
                 }
                 break;
-
-           // case WAITINGSHOOTER:
-             //   if (! waitingOnShooter) {
-               //     currentDriveState = MecDrive.DriveState.STOPPED;
-                //}
-                //break;
-
-
 
         }
 

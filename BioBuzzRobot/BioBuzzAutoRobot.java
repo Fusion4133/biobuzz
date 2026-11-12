@@ -22,8 +22,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
     public AutonomousTextOption thirdCollection = autoOptions.addTextOption("Third Collection", "side wall", new String[]{"garden", "flower 1", "side wall", "flower 2", "none"});
     public AutonomousTextOption fourthCollection = autoOptions.addTextOption("Fourth Collection", "flower 2", new String[]{"garden", "flower 1", "side wall", "flower 2", "none"});
 
-    //TODO Add the rest of autonomous options(ball collect)
-
+    public WaitComponent waitComponent = new WaitComponent();
 
     public StateMachineCommands autoCommands;
 
@@ -72,6 +71,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         drivetrain.checkDriveState(autoCommands);
         intake.checkIntakeState(autoCommands);
         shooter.checkShooterState(autoCommands);
+        waitComponent.checkWaitState(autoCommands);
     }
 
 

@@ -9,6 +9,7 @@ public abstract class StateMachineCommand
         SERVO,
         MOTOR,
         SHOOTER,
+        WAIT,
         END
     };
 

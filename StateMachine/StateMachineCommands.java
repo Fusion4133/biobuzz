@@ -29,34 +29,40 @@ public class StateMachineCommands
 
     public StateMachineCommand getCommand()
     {
-        return stateMachineCommands.get(currentOption);
+        StateMachineCommand tempCommand = stateMachineCommands.get(currentOption);
+        currentOption++;
+        return tempCommand;
     }
 
     public StateMachineDriveCommand getDriveCommand ()
     {
-       return (StateMachineDriveCommand) stateMachineCommands.get(currentOption);
+       return (StateMachineDriveCommand) getCommand();
     }
 
     public StateMachineServoCommand getServoCommand()
     {
-       return (StateMachineServoCommand) stateMachineCommands.get(currentOption);
+       return (StateMachineServoCommand) getCommand();
     }
 
     public StateMachineMotorCommand getMotorCommand()
     {
-        return (StateMachineMotorCommand) stateMachineCommands.get(currentOption);
+        return (StateMachineMotorCommand) getCommand();
 
     }
 
     public StateMachineIntakeCommand getIntakeCommand() {
-        return (StateMachineIntakeCommand) stateMachineCommands.get(currentOption);
+        return (StateMachineIntakeCommand) getCommand();
 
     }
 
-
     public StateMachineShooterCommand getShooterCommand()
     {
-        return (StateMachineShooterCommand) stateMachineCommands.get(currentOption);
+        return (StateMachineShooterCommand) getCommand();
+    }
+
+    public StateMachineWaitCommand getWaitCommand()
+    {
+        return (StateMachineWaitCommand) getCommand();
     }
 
 }

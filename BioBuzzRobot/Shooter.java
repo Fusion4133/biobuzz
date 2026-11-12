@@ -58,11 +58,10 @@ public class Shooter {
         switch (currentShooterState) {
             case STOPPED:
                 //waitingOnDrive = false;
-                if (commandList.currentOption < commandList.stateMachineCommands.size() &&
-                        commandList.getCurrentType() == StateMachineCommand.SystemTypes.SHOOTER) {
+
+                if (commandList.getCurrentType() == StateMachineCommand.SystemTypes.SHOOTER) {
 
                     currentShooterCommand = commandList.getShooterCommand();
-                    commandList.currentOption++;
 
                     switch (currentShooterCommand.command) {
                         case TURNON:
@@ -82,11 +81,9 @@ public class Shooter {
 
             case READYTOSHOOT:
 
-                if (commandList.currentOption < commandList.stateMachineCommands.size() &&
-                        commandList.getCurrentType() == StateMachineCommand.SystemTypes.SHOOTER) {
+                if (commandList.getCurrentType() == StateMachineCommand.SystemTypes.SHOOTER) {
 
                     currentShooterCommand = commandList.getShooterCommand();
-                    commandList.currentOption++;
 
                     switch (currentShooterCommand.command) {
                         case STOP:
