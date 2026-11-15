@@ -86,7 +86,7 @@ public class TerrificTeleOp extends OpMode {
             robot.shooter.pollenServo.setPosition(Shooter.POLLEN_SERVO_CLOSED);
         }
 
-        if (gamepad2.right_trigger < 0.4) {
+        if (gamepad2.right_trigger > 0.4) {
             robot.shooter.nectarServo.setPosition(Shooter.NECTAR_SERVO_OPEN);
         }
         else {
@@ -99,13 +99,23 @@ public class TerrificTeleOp extends OpMode {
 
         if (gamepad2.dpadUpWasPressed()) {
             // += is shorthand for tempPollenVelocity = tempPollenVelocity + inc
-            tempPollenVelocity += inc;
-            tempNectarVelocity += inc;
+            if (gamepad2.right_bumper) {
+                tempNectarVelocity += inc;
+            }
+
+            if (gamepad2.left_bumper) {
+                tempPollenVelocity += inc;
+            }
         }
 
         if (gamepad2.dpadDownWasPressed()) {
-            tempPollenVelocity -= inc;
-            tempNectarVelocity -= inc;
+            if (gamepad2.right_bumper) {
+                tempNectarVelocity -= inc;
+            }
+
+            if (gamepad2.left_bumper) {
+                tempPollenVelocity -= inc;
+            }
 
         }
 
