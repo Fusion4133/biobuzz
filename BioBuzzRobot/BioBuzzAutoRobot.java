@@ -27,14 +27,15 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
 
     public WaitComponent waitComponent = new WaitComponent();
 
-    public StateMachineCommands autoCommands;
+    public StateMachineCommands autoCommands = new StateMachineCommands();
 
 
     public void setupSidewall(){
-        drivetrain.initOdoPos(0.0, 180.3, (3.0*Math.PI)/2.0);
+        drivetrain.initOdoPos(0.0, 180.3, (Math.PI)/2.0);
 //        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,180.3, (3.0*Math.PI)/2.0)));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,231.1, (3.0*Math.PI)/2.0)));
-
+//        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,231.1, Math.PI)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVEFORWARD, 0.8, 15.2, new Vector(0.0, 180.3, Math.PI/2.0)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.STRAFELEFT, 0.8, 50.8, new Vector(15.2, 180.3, Math.PI/2.0)));
 
     }
     public void setupUpTilt(){
@@ -83,7 +84,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         drivetrain.checkDriveState(autoCommands);
         intake.checkIntakeState(autoCommands);
         shooter.checkShooterState(autoCommands);
-        waitComponent.checkWaitState(autoCommands);
+        waitComponent.checkWaitState(autoCommands, this); //this bc we are already in the BioBuzzAutoRobot (see WaitComponent class)
 
         if (autoCommands.getCurrentType() == StateMachineCommand.SystemTypes.END &&
         drivetrain.currentDriveState == MecDrive.DriveState.STOPPED &&

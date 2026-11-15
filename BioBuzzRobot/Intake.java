@@ -27,7 +27,9 @@ public class Intake {
     public enum IntakeState {
         READY,
         COLLECTING,
-        EJECTING
+        EJECTING,
+        WAITING
+
     }
 
 

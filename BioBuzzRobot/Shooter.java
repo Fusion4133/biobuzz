@@ -49,7 +49,8 @@ public class Shooter {
     public enum ShooterState {
         STOPPED,
         READYTOSHOOT,
-        SHOOTING
+        SHOOTING,
+        WAITING
     }
 
 

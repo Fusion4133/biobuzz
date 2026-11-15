@@ -62,7 +62,7 @@ public class TerrificTeleOp extends OpMode {
             robot.intake.intakeMotor.setPower(0.0);
         }
 
-        if (gamepad2.left_bumper){
+        if (gamepad2.left_trigger > 0.4){
             robot.shooter.pollenMotor.setVelocity(tempPollenVelocity);
           //  robot.shooter.pollenMotor.setVelocity(Shooter.POLLEN_MOTOR_VELOCITY);
         }
@@ -70,7 +70,7 @@ public class TerrificTeleOp extends OpMode {
             robot.shooter.pollenMotor.setPower(0.0);
         }
 
-        if (gamepad2.right_bumper){
+        if (gamepad2.right_trigger > 0.4){
             robot.shooter.nectarMotor.setVelocity(tempNectarVelocity);
            // robot.shooter.nectarMotor.setVelocity(Shooter.NECTAR_MOTOR_VELOCITY);
 
@@ -79,14 +79,14 @@ public class TerrificTeleOp extends OpMode {
             robot.shooter.nectarMotor.setPower(0.0);
         }
 
-        if (gamepad2.left_trigger > 0.4) {
+        if (gamepad2.left_bumper) {
             robot.shooter.pollenServo.setPosition(Shooter.POLLEN_SERVO_OPEN);
         }
         else {
             robot.shooter.pollenServo.setPosition(Shooter.POLLEN_SERVO_CLOSED);
         }
 
-        if (gamepad2.right_trigger > 0.4) {
+        if (gamepad2.right_bumper) {
             robot.shooter.nectarServo.setPosition(Shooter.NECTAR_SERVO_OPEN);
         }
         else {
@@ -99,21 +99,21 @@ public class TerrificTeleOp extends OpMode {
 
         if (gamepad2.dpadUpWasPressed()) {
             // += is shorthand for tempPollenVelocity = tempPollenVelocity + inc
-            if (gamepad2.right_bumper) {
+            if (gamepad2.right_trigger > 0.4) {
                 tempNectarVelocity += inc;
             }
 
-            if (gamepad2.left_bumper) {
+            if (gamepad2.left_trigger >0.4) {
                 tempPollenVelocity += inc;
             }
         }
 
         if (gamepad2.dpadDownWasPressed()) {
-            if (gamepad2.right_bumper) {
+            if (gamepad2.right_trigger >0.4) {
                 tempNectarVelocity -= inc;
             }
 
-            if (gamepad2.left_bumper) {
+            if (gamepad2.left_trigger > 0.4) {
                 tempPollenVelocity -= inc;
             }
 
