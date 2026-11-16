@@ -31,11 +31,11 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
 
 
     public void setupSidewall(){
-        drivetrain.initOdoPos(0.0, 180.3, (Math.PI)/2.0);
+        drivetrain.initOdoPos(0.0, 180.3, (3.0 * Math.PI)/2.0);
 //        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,180.3, (3.0*Math.PI)/2.0)));
-//        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,231.1, Math.PI)));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVEFORWARD, 0.8, 15.2, new Vector(0.0, 180.3, Math.PI/2.0)));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.STRAFELEFT, 0.8, 50.8, new Vector(15.2, 180.3, Math.PI/2.0)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,231.1, (3.0*Math.PI/2.0))));
+      //  autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVEFORWARD, 0.8, 15.2, new Vector(0.0, 180.3, Math.PI/2.0)));
+      //  autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.STRAFELEFT, 0.8, 50.8, new Vector(15.2, 180.3, Math.PI/2.0)));
 
     }
     public void setupUpTilt(){

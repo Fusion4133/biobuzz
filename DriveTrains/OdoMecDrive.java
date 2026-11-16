@@ -341,7 +341,7 @@ public class OdoMecDrive extends MecDrive {
         double dY = finalVector.y - pos.y;
         double driveTheta = Math.atan(dY/dX);
         double dTheta = pos.theta - finalVector.theta;
-        double turnPower = -0.15 * iPower;
+        double turnPower = 0.15 * iPower;
 
 
         if (dY < 0 ){
@@ -429,7 +429,7 @@ public class OdoMecDrive extends MecDrive {
        // double driveTheta = Math.atan(dY/dX);
         //TODO check the MATH.abs
         double dTheta = finalVector.theta - pos.theta;
-        double turnPower = -1;
+        double turnPower = 1;
 
         if (dTheta > 0){
             turnPower *= -1;
@@ -485,9 +485,9 @@ public class OdoMecDrive extends MecDrive {
         telem.addData("x:", xIsComplete);
 
         if (Math.abs(pos.theta - thetaStart) > 0.01 &&  turnIsComplete){
-            turnMx = -angularAdjust * (pos.theta - finalVector.theta);
-            if (Math.abs(turnMx) > 0.30 ){
-                turnMx = 0.30;
+            turnMx = angularAdjust * (pos.theta - finalVector.theta);
+            if (Math.abs(turnMx) > 0.10 ){
+                turnMx = 0.10;
             }
 
             telem.addData("turnMx:", turnMx);
@@ -500,14 +500,14 @@ public class OdoMecDrive extends MecDrive {
         }
 
         if (Math.abs(dTheta) < Math.PI / 4){
-            turnPower *= 0.4;
+            turnPower *= 0.25;
         }
 
         double rampNum = dY * dY + dX * dX;
         boolean readyRamp = false;
 
-        if (Math.sqrt(rampNum) < 25.0 && !xyDone && iPower > 0.5 ){
-            xyAdjust *= 1.0;
+        if (Math.sqrt(rampNum) < 25.0 && !xyDone){
+            xyAdjust *= 0.25;
             readyRamp = true;
 //            if (xyAdjust * iPower < 0.15){
 //                xyAdjust = 1;
@@ -564,7 +564,7 @@ public class OdoMecDrive extends MecDrive {
         telem.addData("dY:", dY);
         telem.addData("dTheta:", dTheta);
         telem.addData("DX:", dX);
-        setDrivePowers((lfPower * iPower / maxPower), (rfPower * iPower / maxPower), (lbPower * iPower / maxPower), (rbPower * iPower / maxPower));
+        setDrivePowers(-(lfPower * iPower / maxPower), (rfPower * iPower / maxPower), (lbPower * iPower / maxPower), (rbPower * iPower / maxPower));
         telem.update();
     }
 
