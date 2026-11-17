@@ -360,7 +360,7 @@ public class OdoMecDrive extends MecDrive {
             newTurn = 0.0;
             turnIsComplete = true;
         }
-        else if (deltaTheta < 0.0){
+        else if (deltaTheta > 0.0){
             newTurn *= -1.0;
             turnIsComplete = false;
         }
@@ -372,7 +372,7 @@ public class OdoMecDrive extends MecDrive {
         double distance = Math.hypot(deltaX, deltaY);
 
         double newForward = distance * Math.cos(driveTheta - pos.theta);
-        double newStrafe = distance * Math.sin(driveTheta - pos.theta);
+        double newStrafe = -distance * Math.sin(driveTheta - pos.theta);
 
         double maxPower = power;
         if (Math.abs(distance) < 1.0) {
