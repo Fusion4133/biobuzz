@@ -340,6 +340,59 @@ public class OdoMecDrive extends MecDrive {
     }
 
 
+    public void driveToPosOdo (double power, Vector destinationPosition){
+
+        double deltaX = destinationPosition.x - pos.x;
+        double deltaY = destinationPosition.y - pos.y;
+        double deltaTheta = AngleUnit.normalizeRadians(destinationPosition.theta) - pos.theta;
+
+        if (deltaX == 0){
+            deltaX = 0.0001;
+        }
+        if (deltaY == 0){
+            deltaY = 0.0001;
+        }
+
+        double newTurn = power;
+        if (Math.abs(deltaTheta) < 0.1){
+            newTurn = 0.0;
+            turnIsComplete = true;
+        }
+        else if (deltaTheta < 0.0){
+            newTurn *= -1.0;
+            turnIsComplete = false;
+        }
+        else {
+            turnIsComplete = false;
+        }
+
+        double driveTheta = Math.atan2(deltaY, deltaX);
+        double distance = Math.hypot(deltaX, deltaY);
+
+        double newForward = distance * Math.cos(driveTheta - pos.theta);
+        double newStrafe = distance * Math.sin(driveTheta - pos.theta);
+
+        double maxPower = power;
+        if (Math.abs(distance) < 1.0) {
+            xIsComplete = true;
+            yIsComplete = true;
+            newForward = 0.0;
+            newStrafe = 0.0;
+
+        }
+        else if (Math.abs(distance) < 25.0) {
+            maxPower = 0.25;
+            xIsComplete = false;
+            yIsComplete = false;
+        }
+        else {
+            xIsComplete = false;
+            yIsComplete = false;
+        }
+
+        driveMecanum(newForward, newStrafe, newTurn, maxPower); //if distance is closer, max power is lower
+    }
+
     public void driveToOdo (double iPower, Vector finalVector){
 
         double dX = finalVector.x - pos.x;
@@ -767,7 +820,7 @@ public class OdoMecDrive extends MecDrive {
                             turnStartOdo(currentDriveCommand.power, currentDriveCommand.distance, MecDrive.TurnDirection.LEFTSPIN);
                             break;
                         case DRIVETOPOS:
-                            driveToOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
+                            driveToPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
                             break;
                         //case DRIVETIME:
                             //driveTimer.reset();
@@ -818,7 +871,7 @@ public class OdoMecDrive extends MecDrive {
                     setDrivePowers(0, 0,0,0);
                     currentDriveState = MecDrive.DriveState.STOPPED;
                 } else {
-                    driveToOdoAdjustToTarget(currentDriveCommand.power, currentDriveCommand.finalVector);
+                    driveToPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
 
                 }
                 break;
