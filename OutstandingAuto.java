@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.BioBuzzRobot.BioBuzzAutoRobot;
 
 @Autonomous
@@ -26,6 +28,7 @@ public class OutstandingAuto extends LinearOpMode {
         }
         waitForStart();
 
+        robot.drivetrain.initOdoPos(robot.drivetrain.pose2D.getX(DistanceUnit.CM), robot.drivetrain.pose2D.getY(DistanceUnit.CM), robot.drivetrain.pose2D.getHeading(AngleUnit.RADIANS));
         sleep((long) robot.startDelay.getValue() * 1000);
 
         while (opModeIsActive() && !isStopRequested() && robot.isRobotOccupied) {

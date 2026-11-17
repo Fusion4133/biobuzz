@@ -24,7 +24,6 @@ public class TerrificTeleOp extends OpMode {
     public void init() {
         robot.robotInit(hardwareMap, telemetry);
         //robot.drivetrain.initOdoPos(15.2,221.0,Math.PI/2); //TODO figure out how to pass ending position from auto into this
-        robot.drivetrain.initOdoPos(0.0,0.0,0.0); //TODO figure out how to pass ending position from auto into this
 
         tempNectarVelocity = Shooter.NECTAR_MOTOR_VELOCITY;
         tempPollenVelocity = Shooter.POLLEN_MOTOR_VELOCITY;
@@ -35,7 +34,8 @@ public class TerrificTeleOp extends OpMode {
     @Override
     public void start() {
         super.start();
-
+//        robot.drivetrain.initOdoPos(0.0,180.3,(3.0 * Math.PI/2.0)); //TODO figure out how to pass ending position from auto into this
+        robot.drivetrain.initOdoPos(0.0,180.3,0.0); //TODO figure out how to pass ending position from auto into this
 
     }
 
@@ -43,11 +43,12 @@ public class TerrificTeleOp extends OpMode {
     @Override
     public void loop() {
         robot.drivetrain.odoLogic();
+//        robot.drivetrain.pinPoint.update();
+        robot.drivetrain.pose2D = robot.drivetrain.pinPoint.getPosition();
         robot.drivetrain.fieldCentricDrive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, robot.drivetrain.pos.theta, true);
-
-        telemetry.addData("X Pod", robot.drivetrain.pinPoint.getPosX(DistanceUnit.CM));
-        telemetry.addData("y Pod", robot.drivetrain.pinPoint.getPosY(DistanceUnit.CM));
-        telemetry.addData("heading", robot.drivetrain.pinPoint.getHeading(AngleUnit.RADIANS));
+        telemetry.addData("X Pod", robot.drivetrain.pose2D.getX(DistanceUnit.CM));
+        telemetry.addData("y Pod", robot.drivetrain.pose2D.getY(DistanceUnit.CM));
+        telemetry.addData("heading", robot.drivetrain.pose2D.getHeading(AngleUnit.RADIANS));
 
         telemetry.addData("nectar shooter velocity", robot.shooter.nectarMotor.getVelocity());
         telemetry.addData("pollen shooter velocity", robot.shooter.pollenMotor.getVelocity());

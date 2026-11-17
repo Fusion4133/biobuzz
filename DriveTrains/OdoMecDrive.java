@@ -23,7 +23,7 @@ public class OdoMecDrive extends MecDrive {
     
     public GoBildaPinpointDriver pinPoint;
 
-    Pose2D pose2D;
+    public Pose2D pose2D;
     public enum VectorFollow {
         xVector,
         yVector
@@ -77,8 +77,8 @@ public class OdoMecDrive extends MecDrive {
 
 
     public void fieldCentricDrive(double xInput, double yInput, double turnInput, double thetaInput, boolean driveModeHigh){
-        double newX = xInput * Math.cos(pinPoint.getHeading(AngleUnit.RADIANS)) + yInput * Math.sin(pinPoint.getHeading(AngleUnit.RADIANS));
-        double newY = yInput * Math.cos(pinPoint.getHeading(AngleUnit.RADIANS)) - xInput * Math.sin(pinPoint.getHeading(AngleUnit.RADIANS));
+        double newX = xInput * Math.cos(pinPoint.getPosition().getHeading(AngleUnit.RADIANS)) + yInput * Math.sin(pinPoint.getPosition().getHeading(AngleUnit.RADIANS));
+        double newY = yInput * Math.cos(pinPoint.getPosition().getHeading(AngleUnit.RADIANS)) - xInput * Math.sin(pinPoint.getPosition().getHeading(AngleUnit.RADIANS));
 
 
         setDrivePowers(newY + newX + turnInput, newY - newX + turnInput, newY - newX - turnInput, newY + newX - turnInput);
@@ -98,26 +98,30 @@ public class OdoMecDrive extends MecDrive {
         pinPoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.FORWARD);
         pinPoint.resetPosAndIMU();
 
-        pinPoint.getHeading(AngleUnit.RADIANS);
+//        pinPoint.getHeading(AngleUnit.RADIANS);
 
-        pinPoint.setPosition(new Pose2D(DistanceUnit.CM, 0, 0, AngleUnit.RADIANS, 0));
+//        pinPoint.setPosition(new Pose2D(DistanceUnit.CM, 0, 0, AngleUnit.RADIANS, 0));
 
     }
 
     public void initOdoPos(double startx, double starty, double startTheta){
-        pinPoint.update();
-        pose2D = pinPoint.getPosition();
+       // pinPoint.update();
 
-        originalX = startx;
-        originalY = starty;
-        originalTheta = startTheta;
+//        originalX = startx;
+//        originalY = starty;
+//        originalTheta = startTheta;
 
-        pinPoint.setHeading(originalTheta, AngleUnit.RADIANS);
-        pinPoint.setPosX(originalX, DistanceUnit.CM);
-        pinPoint.setPosY(originalY, DistanceUnit.CM);
-        pos.x = pose2D.getX(DistanceUnit.CM);
-        pos.y = pose2D.getY(DistanceUnit.CM);
-        pos.theta = pinPoint.getHeading(UnnormalizedAngleUnit.DEGREES);
+        pinPoint.setPosition(new Pose2D(DistanceUnit.CM, startx, starty, AngleUnit.RADIANS, startTheta));
+        //pinPoint.setHeading(originalTheta, AngleUnit.RADIANS);
+        //pinPoint.setPosX(originalX, DistanceUnit.CM);
+        //pinPoint.setPosY(originalY, DistanceUnit.CM);
+//        pose2D = pinPoint.getPosition();
+//        pos.x = pinPoint.getPosition().getX(DistanceUnit.CM);
+//        pos.y = pinPoint.getPosition().getY(DistanceUnit.CM);
+//        pos.theta = pinPoint.getPosition().getHeading(AngleUnit.RADIANS);
+        pos.x = startx;
+        pos.y = starty;
+        pos.theta = startTheta;
     }
 
     public void turnStartOdo(double iPower, double iHeading, TurnDirection iDir){
@@ -141,7 +145,7 @@ public class OdoMecDrive extends MecDrive {
         pos.x = pose2D.getX(DistanceUnit.CM);
         pos.y = pose2D.getY(DistanceUnit.CM);
         pos.theta = pinPoint.getHeading(UnnormalizedAngleUnit.RADIANS);
-        adjustedTheta = pinPoint.getHeading(AngleUnit.DEGREES);
+        adjustedTheta = pinPoint.getHeading(AngleUnit.RADIANS);
 
 
 
@@ -335,6 +339,7 @@ public class OdoMecDrive extends MecDrive {
         stopDriveMotors();
     }
 
+
     public void driveToOdo (double iPower, Vector finalVector){
 
         double dX = finalVector.x - pos.x;
@@ -516,7 +521,7 @@ public class OdoMecDrive extends MecDrive {
 
         //TODO name the powers properly
 
-        double lfPower = Math.cos(driveTheta - pos.theta) * xyAdjust + Math.sin(driveTheta - pos.theta) * xyAdjust + turnPower + turnMx;
+       /* double lfPower = Math.cos(driveTheta - pos.theta) * xyAdjust + Math.sin(driveTheta - pos.theta) * xyAdjust + turnPower + turnMx;
         double rfPower = Math.cos(driveTheta - pos.theta)* xyAdjust - Math.sin(driveTheta - pos.theta)* xyAdjust + turnPower + turnMx;
         double lbPower = Math.cos(driveTheta - pos.theta)* xyAdjust - Math.sin(driveTheta - pos.theta)* xyAdjust - turnPower - turnMx;
         double rbPower = Math.cos(driveTheta - pos.theta)* xyAdjust + Math.sin(driveTheta - pos.theta)* xyAdjust - turnPower - turnMx;
@@ -527,7 +532,25 @@ public class OdoMecDrive extends MecDrive {
             rfPower = Math.cos(driveTheta + pos.theta) - Math.sin(driveTheta - pos.theta) + turnPower;
             lbPower = Math.cos(driveTheta + pos.theta) - Math.sin(driveTheta - pos.theta) - turnPower;
             rbPower = Math.cos(driveTheta + pos.theta) + Math.sin(driveTheta - pos.theta) - turnPower;
+        }*/
+
+        double newX = xyAdjust * Math.cos(driveTheta - pos.theta) + xyAdjust * Math.sin(driveTheta - pos.theta);
+        double newY = xyAdjust * Math.cos(driveTheta - pos.theta) - xyAdjust * Math.sin(driveTheta - pos.theta);
+
+
+        double lfPower = newY + newX + turnPower + turnMx;
+        double lbPower = newY - newX + turnPower + turnMx;
+        double rfPower = newY - newX - turnPower - turnMx;
+        double rbPower = newY + newX - turnPower - turnMx;
+/*
+        if (driveTheta == 0) {
+
+            lfPower = Math.sin(driveTheta + pos.theta) + Math.cos(driveTheta - pos.theta) + turnPower;
+            lbPower = Math.sin(driveTheta + pos.theta) - Math.cos(driveTheta - pos.theta) + turnPower;
+            rfPower = Math.sin(driveTheta + pos.theta) - Math.cos(driveTheta - pos.theta) - turnPower;
+            rbPower = Math.sin(driveTheta + pos.theta) + Math.cos(driveTheta - pos.theta) - turnPower;
         }
+*/
 
         double maxPower;
 
@@ -564,7 +587,7 @@ public class OdoMecDrive extends MecDrive {
         telem.addData("dY:", dY);
         telem.addData("dTheta:", dTheta);
         telem.addData("DX:", dX);
-        setDrivePowers(-(lfPower * iPower / maxPower), (rfPower * iPower / maxPower), (lbPower * iPower / maxPower), (rbPower * iPower / maxPower));
+        setDrivePowers((lfPower * iPower / maxPower), (lbPower * iPower / maxPower), (rfPower * iPower / maxPower), (rbPower * iPower / maxPower));
         telem.update();
     }
 
@@ -651,7 +674,7 @@ public class OdoMecDrive extends MecDrive {
         telem.addData("x:", xIsComplete);
 
         if (Math.abs(pos.theta - thetaStart) > 0.01 &&  turnIsComplete){
-            turnMx = -angularAdjust * (pos.theta - finalVector.theta);
+            turnMx = angularAdjust * (pos.theta - finalVector.theta);
             if (Math.abs(turnMx) > 0.10 ){
                 turnMx = 0.10;
             }

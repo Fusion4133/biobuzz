@@ -137,6 +137,22 @@ public class MecDrive {
         currentDriveState = DriveState.STOPPED;
     }
 
+    public void driveMecanum(double forward, double strafe, double turn, double maxPower){
+        double leftFrontPower  = forward + strafe + turn;
+        double leftBackPower   = forward - strafe + turn;
+        double rightFrontPower = forward - strafe - turn;
+        double righBackPower   = forward + strafe - turn;
+
+        double motorPowerNormalizer = maxPower / (Math.max(1.0, Math.abs(forward) + Math.abs(strafe) + Math.abs(turn)));
+
+        setDrivePowers(leftFrontPower * motorPowerNormalizer, leftBackPower * motorPowerNormalizer, rightFrontPower * motorPowerNormalizer, righBackPower * motorPowerNormalizer);
+    }
+
+    public void driveMecanum(double forward, double strafe, double turn){
+        driveMecanum(forward, strafe, turn, 1.0);
+    }
+
+
     public float getTurnDegrees(float startHeading, float currentHeading){
         float traveledDegrees = currentHeading - startHeading;
         if (traveledDegrees > 180){
