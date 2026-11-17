@@ -374,6 +374,10 @@ public class OdoMecDrive extends MecDrive {
         double newForward = distance * Math.cos(driveTheta - pos.theta);
         double newStrafe = -distance * Math.sin(driveTheta - pos.theta);
 
+        double scaleNormalizer = Math.max(Math.abs(newForward), Math.abs(newStrafe));
+        newForward /= scaleNormalizer;
+        newStrafe /= scaleNormalizer;
+
         double maxPower = power;
         if (Math.abs(distance) < 1.0) {
             xIsComplete = true;

@@ -35,21 +35,19 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
 
     public void setupSidewall(){
         drivetrain.pose2D = new Pose2D(DistanceUnit.CM, 0.0, 180.3, AngleUnit.RADIANS, 0.0);
-     //   drivetrain.initOdoPos(0.0, 180.3, (3.0 * Math.PI)/2.0);
-//        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,180.3, (3.0*Math.PI)/2.0)));
        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8,  new Vector(15.2,290.1, 0.0)));
-        //autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVEFORWARD, 0.8, 15.2, new Vector(0.0, 180.3, Math.PI/2.0)));
-       // autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.STRAFELEFT, 0.8, 50.8, new Vector(15.2, 180.3, Math.PI/2.0)));
+
 
     }
     public void setupUpTilt(){
-        drivetrain.initOdoPos(121.9, 0.0, 0.0);
+      //  drivetrain.initOdoPos(121.9, 0.0, 0.0);
+        drivetrain.pose2D = new Pose2D(DistanceUnit.CM, 128.0, 0.0, AngleUnit.RADIANS, Math.PI/2.0);
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.TURNON));
         //wait for shooter to be ready to shoot (built in)
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.SHOOT));
         // wait 2 seconds for balls to shoot before stopping (built in)
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.STOP));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(45.5, 76.5, Math.PI)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(45.5, 76.5, 3.0 * Math.PI/2)));/*
         // wait till we drive to postition to turn on intake
         autoCommands.addCommand(new StateMachineWaitCommand(WaitComponent.WaitCommand.WAITCOMPONENT, StateMachineCommand.SystemTypes.INTAKE, StateMachineCommand.SystemTypes.DRIVE));
         autoCommands.addCommand(new StateMachineIntakeCommand(Intake.IntakeCommand.COLLECT));
@@ -80,7 +78,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         // programming for in one shoot, will add another if needed
         autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(15.2,231.1,0)));
 
-
+*/
 
     }
 

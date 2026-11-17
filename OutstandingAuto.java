@@ -24,7 +24,7 @@ public class OutstandingAuto extends LinearOpMode {
         if (robot.startPosition.getValue().equals("sidewall")){
             robot.setupSidewall();
         } else if (robot.startPosition.getValue().equals("uptilt")){
-
+            robot.setupUpTilt();
         }
         waitForStart();
 
