@@ -342,6 +342,8 @@ public class OdoMecDrive extends MecDrive {
 
     public void driveToPosOdo (double power, Vector destinationPosition){
 
+        currentDriveState = DriveState.DRIVINGT0POS;
+
         double deltaX = destinationPosition.x - pos.x;
         double deltaY = destinationPosition.y - pos.y;
         double deltaTheta = AngleUnit.normalizeRadians(destinationPosition.theta) - pos.theta;
