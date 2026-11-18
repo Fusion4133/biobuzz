@@ -27,7 +27,7 @@ public class Shooter {
 
     //eventually nectar might be faster
     //shooter velocities as of 11/10/26
-    public static final double NECTAR_MOTOR_VELOCITY = 2080.0;
+    public static final double NECTAR_MOTOR_VELOCITY = 2700.0;
     public static final double POLLEN_MOTOR_VELOCITY = 1800.0;
 
     //TODO test servo values

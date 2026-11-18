@@ -356,13 +356,18 @@ public class OdoMecDrive extends MecDrive {
         }
 
         double newTurn = power;
+        if (deltaTheta > 0.0){
+            newTurn *= -1.0;
+        }
+
         if (Math.abs(deltaTheta) < 0.1){
             newTurn = 0.0;
             turnIsComplete = true;
         }
-        else if (deltaTheta > 0.0){
-            newTurn *= -1.0;
+        else if(Math.abs(deltaTheta) < Math.PI/4) {
+            newTurn *= 0.25;
             turnIsComplete = false;
+
         }
         else {
             turnIsComplete = false;
@@ -399,6 +404,59 @@ public class OdoMecDrive extends MecDrive {
         driveMecanum(newForward, newStrafe, newTurn, maxPower); //if distance is closer, max power is lower
     }
 
+    public void driveAboutPosOdo (double power, Vector destinationPosition){
+
+        currentDriveState = DriveState.DRIVINGABOUTPOS;
+
+        double deltaX = destinationPosition.x - pos.x;
+        double deltaY = destinationPosition.y - pos.y;
+        double deltaTheta = AngleUnit.normalizeRadians(destinationPosition.theta) - pos.theta;
+
+        if (deltaX == 0){
+            deltaX = 0.0001;
+        }
+        if (deltaY == 0){
+            deltaY = 0.0001;
+        }
+
+        double newTurn = power;
+        if (Math.abs(deltaTheta) < 0.2){
+            newTurn = 0.0;
+            turnIsComplete = true;
+        }
+        else if (deltaTheta > 0.0){
+            newTurn *= -1.0;
+            turnIsComplete = false;
+        }
+        else {
+            turnIsComplete = false;
+        }
+
+        double driveTheta = Math.atan2(deltaY, deltaX);
+        double distance = Math.hypot(deltaX, deltaY);
+
+        double newForward = distance * Math.cos(driveTheta - pos.theta);
+        double newStrafe = -distance * Math.sin(driveTheta - pos.theta);
+
+        double scaleNormalizer = Math.max(Math.abs(newForward), Math.abs(newStrafe));
+        newForward /= scaleNormalizer;
+        newStrafe /= scaleNormalizer;
+
+        double maxPower = power;
+        if (Math.abs(distance) < 2.0) {
+            xIsComplete = true;
+            yIsComplete = true;
+            newForward = 0.0;
+            newStrafe = 0.0;
+
+        }
+        else {
+            xIsComplete = false;
+            yIsComplete = false;
+        }
+
+        driveMecanum(newForward, newStrafe, newTurn, maxPower); //if distance is closer, max power is lower
+    }
     public void driveToOdo (double iPower, Vector finalVector){
 
         double dX = finalVector.x - pos.x;
@@ -828,6 +886,9 @@ public class OdoMecDrive extends MecDrive {
                         case DRIVETOPOS:
                             driveToPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
                             break;
+                        case DRIVEABOUTPOS:
+                            driveAboutPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
+                            break;
                         //case DRIVETIME:
                             //driveTimer.reset();
                             //while (driveTimer.milliseconds() < currentDriveCommand.distance){
@@ -881,7 +942,15 @@ public class OdoMecDrive extends MecDrive {
 
                 }
                 break;
+            case DRIVINGABOUTPOS:
+                if (turnIsComplete && xIsComplete && yIsComplete){
+                    setDrivePowers(0, 0,0,0);
+                    currentDriveState = MecDrive.DriveState.STOPPED;
+                } else {
+                    driveAboutPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
 
+                }
+                break;
         }
 
 
