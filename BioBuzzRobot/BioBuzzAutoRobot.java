@@ -41,24 +41,25 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
     }
     public void setupUpTilt(){
       //  drivetrain.initOdoPos(121.9, 0.0, 0.0);
-        drivetrain.pose2D = new Pose2D(DistanceUnit.CM, 169.0, 0.0, AngleUnit.RADIANS, 3.0 * Math.PI/2.0);
+        drivetrain.pose2D = new Pose2D(DistanceUnit.CM, 169.0, 41.0, AngleUnit.RADIANS, 3.0 * Math.PI/2.0);
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.TURNON));
         //wait for shooter to be ready to shoot (built in)
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.SHOOT));
-        // wait 2 seconds for balls to shoot before stopping (built in)
+        // wait 2 seconds for balls to shoot before
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.STOP));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(50, 10.0, Math.PI)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(120.0, 50.0, Math.PI)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(90.0, 10.0, Math.PI)));
         // wait till we drive to postition to turn on intake
         autoCommands.addCommand(new StateMachineWaitCommand(WaitComponent.WaitCommand.WAITCOMPONENT, StateMachineCommand.SystemTypes.INTAKE, StateMachineCommand.SystemTypes.DRIVE));
         autoCommands.addCommand(new StateMachineIntakeCommand(Intake.IntakeCommand.COLLECT));
 
 
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(0.0, 0.0, Math.PI)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(45.0, 0.1, Math.PI)));
         // wait for 1 second for intake to collect balls
         //TODO
         autoCommands.addCommand(new StateMachineWaitCommand(WaitComponent.WaitCommand.WAITCOMPONENT, StateMachineCommand.SystemTypes.INTAKE, StateMachineCommand.SystemTypes.DRIVE));
         autoCommands.addCommand(new StateMachineIntakeCommand(Intake.IntakeCommand.STOP));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(128.0, 0.0, 3.0 * Math.PI/2)));/*
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(169.0, 41.0, 3.0 * Math.PI/2)));/*
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.TURNON));
         autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(144.8, 348.0, (3.0 * Math.PI)/2)));
         //wait for robot to get to postition before shooting
