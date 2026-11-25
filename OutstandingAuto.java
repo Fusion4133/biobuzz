@@ -34,6 +34,10 @@ public class OutstandingAuto extends LinearOpMode {
         while (opModeIsActive() && !isStopRequested() && robot.isRobotOccupied) {
             //line below refreshes the odometry every time the robot begins auto.
             robot.drivetrain.odoLogic();
+            telemetry.addData("x: ", robot.drivetrain.pos.x);
+            telemetry.addData("y: ", robot.drivetrain.pos.y);
+            telemetry.addData("h: ", robot.drivetrain.pos.theta);
+            telemetry.update();
             robot.checkRobotState();
         }
 

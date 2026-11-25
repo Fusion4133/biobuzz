@@ -28,7 +28,7 @@ public class Shooter {
     //eventually nectar might be faster
     //shooter velocities as of 11/10/26
     public static final double NECTAR_MOTOR_VELOCITY = 2700.0;
-    public static final double POLLEN_MOTOR_VELOCITY = 1800.0;
+    public static final double POLLEN_MOTOR_VELOCITY = 2180.0;
 
     //TODO test servo values
     public static final double NECTAR_SERVO_OPEN = 0.12;
@@ -37,7 +37,7 @@ public class Shooter {
     public static final double POLLEN_SERVO_CLOSED = 0.3;
 
     //TODO test time needed to shoot 4 balls
-    public static final double TIME_NEEDED_TO_SHOOT = 2000;
+    public static final double TIME_NEEDED_TO_SHOOT = 2500;
 
 
     public enum ShooterCommand {
