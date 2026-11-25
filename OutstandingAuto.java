@@ -6,7 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.BioBuzzRobot.BioBuzzAutoRobot;
+import org.firstinspires.ftc.teamcode.DriveTrains.MecDrive;
+import org.firstinspires.ftc.teamcode.StateMachine.StateMachineDriveCommand;
+import org.firstinspires.ftc.teamcode.Tools.Vector;
 
 @Autonomous
 public class OutstandingAuto extends LinearOpMode {
@@ -22,7 +26,10 @@ public class OutstandingAuto extends LinearOpMode {
         robot.autoOptions.selectOptions(this);
 
         if (robot.startPosition.getValue().equals("sidewall")){
-            robot.setupSidewall();
+           // robot.setupSidewall();
+            robot.drivetrain.pose2D = new Pose2D(DistanceUnit.CM, 0.0, 0.0, AngleUnit.RADIANS, 0.0);
+            robot.autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETIME, 0.8, 500));
+            //robot.autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(40.0, 0.0, 0.0)));
         } else if (robot.startPosition.getValue().equals("uptilt")){
             robot.setupUpTilt();
         }

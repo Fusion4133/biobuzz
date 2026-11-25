@@ -47,7 +47,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         // wait 2 seconds for balls to shoot before stopping (built in)
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.STOP));
         autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVEABOUTPOS, 0.8, new Vector(141.0, 40.0, 3.0 * Math.PI / 2.0)));
-        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(71.0, 23.0, Math.PI)));
+        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(71.0, 23.0, Math.PI))); /*
         // wait till we drive to postition to turn on intake
         autoCommands.addCommand(new StateMachineWaitCommand(WaitComponent.WaitCommand.WAITCOMPONENT, StateMachineCommand.SystemTypes.INTAKE, StateMachineCommand.SystemTypes.DRIVE));
         autoCommands.addCommand(new StateMachineIntakeCommand(Intake.IntakeCommand.COLLECT));
@@ -65,7 +65,7 @@ public class BioBuzzAutoRobot extends BioBuzzRobot {
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.TURNON));
         autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(141.0, 22.5, 3.0 * Math.PI/2.0)));
 
-//        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(144.8, 348.0, (3.0 * Math.PI)/2)));ad
+//        autoCommands.addCommand(new StateMachineDriveCommand(MecDrive.DriveCommand.DRIVETOPOS, 0.8, new Vector(144.8, 348.0, (3.0 * Math.PI)/2)));
         //wait for robot to get to postition before shooting
         autoCommands.addCommand(new StateMachineWaitCommand(WaitComponent.WaitCommand.WAITCOMPONENT, StateMachineCommand.SystemTypes.SHOOTER, StateMachineCommand.SystemTypes.DRIVE));
         autoCommands.addCommand(new StateMachineShooterCommand(Shooter.ShooterCommand.SHOOT));

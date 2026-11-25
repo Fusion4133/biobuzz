@@ -72,6 +72,7 @@ public class MecDrive {
         STOPPED,
         DRIVINGFORWARD,
         DRIVINGBACKWARD,
+        DRIVINGTIME,
         TURNINGLEFT,
         TURNINGRIGHT,
         STRAFINGRIGHT,

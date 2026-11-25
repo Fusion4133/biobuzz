@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.DriveTrains;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -71,7 +72,11 @@ public class OdoMecDrive extends MecDrive {
     public double originalTheta = 0;
     public double adjustedTheta;
 
+    //TODO
+    public static final double rampDownDistance = 25.0;
+    public static final double minimumMotorPower = 0.15;
 
+    public ElapsedTime driveTimer = new ElapsedTime();
     //This is to display telemetry for odometry values in autonomous
     public OdoLogger odoLogger = new OdoLogger();
 
@@ -391,11 +396,16 @@ public class OdoMecDrive extends MecDrive {
             newStrafe = 0.0;
 
         }
-        else if (Math.abs(distance) < 25.0) {
-            maxPower = 0.25;
+        //TODO
+        else if (Math.abs(distance) <rampDownDistance) {
+           // maxPower = 0.25;
+            maxPower = (((0.3 - minimumMotorPower) / (rampDownDistance)) * (Math.abs(distance))) + minimumMotorPower;
+
+
             xIsComplete = false;
             yIsComplete = false;
         }
+
         else {
             xIsComplete = false;
             yIsComplete = false;
@@ -889,13 +899,11 @@ public class OdoMecDrive extends MecDrive {
                         case DRIVEABOUTPOS:
                             driveAboutPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
                             break;
-                        //case DRIVETIME:
-                            //driveTimer.reset();
-                            //while (driveTimer.milliseconds() < currentDriveCommand.distance){
-                                //setDrivePowers(0.5, 0.5, 0.5, 0.5);
-
-                           // }
-                            //break;
+                        case DRIVETIME:
+                            driveTimer.reset();
+                            setDrivePowers(currentDriveCommand.power, currentDriveCommand.power, currentDriveCommand.power, currentDriveCommand.power);
+                            currentDriveState = DriveState.DRIVINGTIME;
+                            break;
 
                     }
 
@@ -948,6 +956,13 @@ public class OdoMecDrive extends MecDrive {
                     currentDriveState = MecDrive.DriveState.STOPPED;
                 } else {
                     driveAboutPosOdo(currentDriveCommand.power, currentDriveCommand.finalVector);
+
+                }
+                break;
+            case DRIVINGTIME:
+                if (driveTimer.milliseconds() > currentDriveCommand.distance){
+                    setDrivePowers(0.0, 0.0, 0.0, 0.0);
+                    currentDriveState = DriveState.STOPPED;
 
                 }
                 break;
